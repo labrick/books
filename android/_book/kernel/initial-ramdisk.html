@@ -1,0 +1,864 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>3.09 初始RAM磁盘 · 深入理解Android系统</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        <meta name="author" content="Brick">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-disqus/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="device-tree-blob.html" />
+    
+    
+    <link rel="prev" href="init-process.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="http://labrick.cc" target="_blank" class="custom-link">工作实验室</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../prepare/">
+            
+                <a href="../prepare/">
+            
+                    
+                    0. 准备工作
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../prepare/as-install.html">
+            
+                <a href="../prepare/as-install.html">
+            
+                    
+                    0.01 应用开发环境搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../prepare/system-env.html">
+            
+                <a href="../prepare/system-env.html">
+            
+                    
+                    0.02 系统开发环境搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../application/">
+            
+                <a href="../application/">
+            
+                    
+                    1. 应用篇
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" >
+            
+                <span>
+            
+                    
+                    1.01 Android应用
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../application/system-sign.html">
+            
+                <a href="../application/system-sign.html">
+            
+                    
+                    1.01.01 获得系统签名
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../application/install-silence.html">
+            
+                <a href="../application/install-silence.html">
+            
+                    
+                    1.02 静默安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="../application/startapp-by-adb.html">
+            
+                <a href="../application/startapp-by-adb.html">
+            
+                    
+                    1.03 adb启动应用
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" >
+            
+                <span>
+            
+                    
+                    1.02 Linux应用
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../framework/">
+            
+                <a href="../framework/">
+            
+                    
+                    2. 框架篇
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../framework/system-lib.html">
+            
+                <a href="../framework/system-lib.html">
+            
+                    
+                    2.01 system/lib目录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../framework/add-service.html">
+            
+                <a href="../framework/add-service.html">
+            
+                    
+                    2.02 注册服务
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    3. 内核篇
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="sunxi-config.html">
+            
+                <a href="sunxi-config.html">
+            
+                    
+                    sunxi内核的配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="operate-dev.html">
+            
+                <a href="operate-dev.html">
+            
+                    
+                    3.01 驱动操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="kernel-version.html">
+            
+                <a href="kernel-version.html">
+            
+                    
+                    3.02 内核版本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="source-top-dir.html">
+            
+                <a href="source-top-dir.html">
+            
+                    
+                    3.03 源码顶层目录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="config-kernel.html">
+            
+                <a href="config-kernel.html">
+            
+                    
+                    3.04 内核配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="synthetize-image.html">
+            
+                <a href="synthetize-image.html">
+            
+                    
+                    3.05 合成内核镜像
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="start-kernel.html">
+            
+                <a href="start-kernel.html">
+            
+                    
+                    3.06 Linux启动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="kernel-cmd.html">
+            
+                <a href="kernel-cmd.html">
+            
+                    
+                    3.07 内核命令行
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.9" data-path="init-process.html">
+            
+                <a href="init-process.html">
+            
+                    
+                    3.08 init进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5.10" data-path="initial-ramdisk.html">
+            
+                <a href="initial-ramdisk.html">
+            
+                    
+                    3.09 初始RAM磁盘
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.11" data-path="device-tree-blob.html">
+            
+                <a href="device-tree-blob.html">
+            
+                    
+                    3.10 设备树对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.12" data-path="device-driver.html">
+            
+                <a href="device-driver.html">
+            
+                    
+                    3.11 设备驱动
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.12.1" data-path="drivers/module-tools.html">
+            
+                <a href="drivers/module-tools.html">
+            
+                    
+                    3.11.01 设备驱动模块工具
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.12.2" data-path="drivers/driver-example.html">
+            
+                <a href="drivers/driver-example.html">
+            
+                    
+                    3.11.02 完整驱动示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.12.3" data-path="drivers/device-node.html">
+            
+                <a href="drivers/device-node.html">
+            
+                    
+                    3.11.03 设备节点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.12.4" data-path="drivers/mtd-subsystem.html">
+            
+                <a href="drivers/mtd-subsystem.html">
+            
+                    
+                    3.11.04 MTD子系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.12.4.1" data-path="drivers/mtd/mtd-element.html">
+            
+                <a href="drivers/mtd/mtd-element.html">
+            
+                    
+                    3.11.04.01 MTD基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.12.4.2" data-path="drivers/mtd/mtd-partition.html">
+            
+                <a href="drivers/mtd/mtd-partition.html">
+            
+                    
+                    3.11.04.02 MTD分区
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.12.5" data-path="drivers/i2c.md">
+            
+                <span>
+            
+                    
+                    3.11.05 I2C子系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.13" data-path="filesystem.html">
+            
+                <a href="filesystem.html">
+            
+                    
+                    3.12 文件系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.13.1" data-path="fs/fs-tools.html">
+            
+                <a href="fs/fs-tools.html">
+            
+                    
+                    3.12.01 文件系统工具
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.13.2" data-path="fs/proc.html">
+            
+                <a href="fs/proc.html">
+            
+                    
+                    3.12.02 伪文件系统proc
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.13.3" data-path="fs/create-fs-image.html">
+            
+                <a href="fs/create-fs-image.html">
+            
+                    
+                    3.12.03 创建文件系统镜像
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.14" data-path="busybox.html">
+            
+                <a href="busybox.html">
+            
+                    
+                    3.13 BusyBox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.15" data-path="udev.html">
+            
+                <a href="udev.html">
+            
+                    
+                    3.14 udev系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../uboot/">
+            
+                <a href="../uboot/">
+            
+                    
+                    4. 启动篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../hardware/">
+            
+                <a href="../hardware/">
+            
+                    
+                    5. 硬件篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../key-abbreviation.html">
+            
+                <a href="../key-abbreviation.html">
+            
+                    
+                    附录A 名词缩写
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >3.09 初始RAM磁盘</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="39-&#x521D;&#x59CB;ram&#x78C1;&#x76D8;">3.9 &#x521D;&#x59CB;RAM&#x78C1;&#x76D8;</h1>
+<p>2017-02-12</p>
+<hr>
+<p>&#x521D;&#x59CB;RAM&#x78C1;&#x76D8;&#x662F;&#x4E00;&#x4E2A;&#x529F;&#x80FD;&#x5B8C;&#x5907;&#x7684;&#x5C0F;&#x578B;&#x6839;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#xFF0C;&#x5B83;&#x901A;&#x5E38;&#x5305;&#x542B;&#x4E00;&#x4E9B;&#x6307;&#x4EE4;&#xFF0C;&#x7528;&#x4E8E;&#x5728;&#x7CFB;&#x7EDF;&#x5F15;&#x5BFC;&#x5B8C;&#x6210;&#x4E4B;&#x524D;&#x52A0;&#x8F7D;&#x4E00;&#x4E9B;&#x7279;&#x5B9A;&#x7684;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x6587;&#x4EF6;&#x3002;&#x6BD4;&#x5982;&#xFF0C;&#x5728;Red Hat&#x548C;Ubuntu&#x7B49;Linux&#x5DE5;&#x4F5C;&#x7AD9;&#x53D1;&#x884C;&#x7248;&#x4E2D;&#xFF0C;&#x521D;&#x59CB;&#x5316;RAM&#x78C1;&#x76D8;&#x7684;&#x4F5C;&#x7528;&#x5C31;&#x662F;<strong>&#x5728;&#x6302;&#x8F7D;&#x771F;&#x6B63;&#x7684;&#x6839;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E4B;&#x524D;&#x52A0;&#x8F7D;EXT3&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;</strong>&#x3002;Initrd&#x4E00;&#x822C;&#x7528;&#x4E8E;&#x52A0;&#x8F7D;&#x8BBF;&#x95EE;&#x771F;&#x6B63;&#x7684;&#x6839;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x5FC5;&#x9700;&#x7684;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x3002;</p>
+<h2 id="&#x521D;&#x59CB;ram&#x78C1;&#x76D8;&#x914D;&#x7F6E;">&#x521D;&#x59CB;RAM&#x78C1;&#x76D8;&#x914D;&#x7F6E;</h2>
+<p>&#x914D;&#x7F6E;&#x4F4D;&#x7F6E;&#x5728;&#xFF1A;</p>
+<pre><code>-&gt; General setup
+    -&gt; Initial RAM filesystem and RAM disk (initramfs/initrd) support (BLK_DEV_INITRD [=y])
+</code></pre><h2 id="initrd">initrd</h2>
+<p>initrd&#x662F;&#x4E00;&#x79CD;&#x6BD4;&#x8F83;&#x8001;&#x7684;&#x955C;&#x50CF;&#x6302;&#x8F7D;&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x5927;&#x591A;&#x6570;&#x67B6;&#x6784;&#x7684;&#x5F15;&#x5BFC;&#x52A0;&#x8F7D;&#x7A0B;&#x5E8F;&#x5148;&#x5C06;&#x538B;&#x7F29;&#x8FC7;&#x7684;&#x5185;&#x6838;&#x955C;&#x50CF;&#x52A0;&#x8F7D;&#x5230;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x63A5;&#x7740;&#x5C06;initrd&#x955C;&#x50CF;&#x52A0;&#x8F7D;&#x5230;&#x53E6;&#x5916;&#x4E00;&#x6BB5;&#x53EF;&#x7528;&#x5185;&#x5B58;&#x4E2D;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5F15;&#x5BFC;&#x52A0;&#x8F7D;&#x7A0B;&#x5E8F;&#x8D1F;&#x8D23;&#x5728;&#x5C06;&#x63A7;&#x5236;&#x6743;&#x8F6C;&#x4EA4;&#x7ED9;&#x5185;&#x6838;&#x4E4B;&#x524D;&#xFF0C;&#x5C06;initrd&#x955C;&#x50CF;&#x7684;&#x52A0;&#x8F7D;&#x5730;&#x5740;&#x4F20;&#x9012;&#x7ED9;&#x5185;&#x6838;&#xFF08;&#x901A;&#x8FC7;&#x5185;&#x6838;&#x547D;&#x4EE4;&#x884C;&#xFF09;&#x3002;</p>
+<p>&#x6709;&#x4E9B;&#x67B6;&#x6784;&#x548C;&#x5E73;&#x53F0;&#x4F1A;&#x6784;&#x9020;&#x5355;&#x4E2A;&#x5408;&#x6210;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x955C;&#x50CF;&#x3002;&#x5F53;&#x5F15;&#x5BFC;&#x52A0;&#x8F7D;&#x7A0B;&#x5E8F;&#x6240;&#x5F15;&#x5BFC;&#x7684;Linux&#x4E0D;&#x652F;&#x6301;&#x52A0;&#x8F7D;initrd&#x955C;&#x50CF;&#x65F6;&#x5C31;&#x4F1A;&#x91C7;&#x7528;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x3002;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5185;&#x6838;&#x548C;initrd&#x955C;&#x50CF;&#x53EA;&#x662F;&#x7B80;&#x5355;&#x5730;&#x62FC;&#x63A5;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x5F62;&#x6210;&#x4E00;&#x4E2A;&#x5408;&#x6210;&#x5730;&#x955C;&#x50CF;&#x3002;&#x53EF;&#x4EE5;&#x5728;&#x5185;&#x6838;&#x5730;makefile(.../arch/arm/Makefile)&#x4E2D;&#x627E;&#x5230;&#x5BF9;&#x8FD9;&#x79CD;&#x5408;&#x6210;&#x955C;&#x50CF;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x540D;&#x79F0;&#x4E3A;bootpImage&#x3002;&#x76EE;&#x524D;&#xFF0C;&#x53EA;&#x6709;ARM&#x67B6;&#x6784;&#x4F7F;&#x7528;&#x4E86;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x3002;</p>
+<h3 id="initrd&#x5965;&#x79D8;&#xFF1A;linuxrc">initrd&#x5965;&#x79D8;&#xFF1A;linuxrc</h3>
+<p>&#x5F53;&#x5185;&#x6838;&#x5F15;&#x5BFC;&#x65F6;&#xFF0C;&#x5B83;&#x9996;&#x5148;&#x4F1A;&#x68C0;&#x6D4B;initrd&#x955C;&#x50CF;&#x662F;&#x5426;&#x5B58;&#x5728;&#x3002;&#x7136;&#x540E;&#xFF0C;&#x5B83;&#x4F1A;&#x5C06;&#x8FD9;&#x4E2A;&#x538B;&#x7F29;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;&#x4ECE;&#x6307;&#x5B9A;&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;&#x590D;&#x5236;&#x5230;&#x4E00;&#x4E2A;&#x5408;&#x9002;&#x7684;&#x5185;&#x6838;ramdisk&#x4E2D;&#xFF08;&#x4E4B;&#x524D;&#x7684;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4F1A;&#x5F52;&#x8FD8;&#x7ED9;&#x7CFB;&#x7EDF;&#x7684;&#x53EF;&#x7528;&#x5185;&#x5B58;&#x6C60;&#xFF09;&#xFF0C;&#x5E76;&#x6302;&#x8F7D;&#x5B83;&#x4F5C;&#x4E3A;&#x6839;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#xFF08;&#x5F62;&#x5F0F;&#x662F;&#x4E00;&#x4E2A;&#x5185;&#x6838;ramdisk&#x8BBE;&#x5907;&#xFF09;&#x3002;</p>
+<p>initrd&#x7684;&#x5965;&#x79D8;&#x6765;&#x81EA;&#x4E00;&#x4E2A;&#x5B58;&#x50A8;&#x5728;initrd&#x955C;&#x50CF;&#x4E2D;&#x7684;&#x7279;&#x6B8A;&#x6587;&#x4EF6;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x5F53;&#x5185;&#x6838;&#x6302;&#x8F7D;&#x521D;&#x59CB;&#x7684;ramdisk&#x65F6;&#xFF0C;&#x5B83;&#x4F1A;&#x67E5;&#x627E;&#x4E00;&#x4E2A;&#x540D;&#x4E3A;linuxrc&#x7684;&#x7279;&#x6B8A;&#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x5C06;&#x5176;&#x5F53;&#x4F5C;&#x4E00;&#x4E2A;&#x811A;&#x672C;&#x6587;&#x4EF6;&#x6765;&#x6267;&#x884C;&#x5176;&#x4E2D;&#x7684;&#x547D;&#x4EE4;&#xFF0C;&#x8FD9;&#x79CD;&#x673A;&#x5236;&#x5141;&#x8BB8;&#x7CFB;&#x7EDF;&#x8BBE;&#x8BA1;&#x8005;&#x63A7;&#x5236;initrd&#x7684;&#x884C;&#x4E3A;&#x3002;</p>
+<h3 id="initrd&#x63A2;&#x7A76;">initrd&#x63A2;&#x7A76;</h3>
+<p>&#x4F5C;&#x4E3A;Linux&#x5F15;&#x5BFC;&#x8FC7;&#x7A0B;&#x7684;&#x4E00;&#x90E8;&#x5206;&#xFF0C;&#x5185;&#x6838;&#x5FC5;&#x9700;&#x627E;&#x5230;&#x5E76;&#x6302;&#x8F7D;&#x4E00;&#x4E2A;&#x6839;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x3002;&#x5728;&#x5F15;&#x5BFC;&#x8FC7;&#x7A0B;&#x7684;&#x540E;&#x671F;&#xFF0C;&#x5185;&#x6838;&#x901A;&#x8FC7;&#x51FD;&#x6570;prepare_namespace()&#x51B3;&#x5B9A;&#x8981;&#x6302;&#x8F7D;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x53CA;&#x6302;&#x8F7D;&#x70B9;&#xFF0C;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x4F4D;&#x4E8E;&#x6587;&#x4EF6;.../init/do_mounts.c&#x4E2D;&#x3002;&#x5982;&#x679C;&#x5185;&#x6838;&#x652F;&#x6301;initrd&#x5E76;&#x4E14;&#x5185;&#x6838;&#x547D;&#x4EE4;&#x884C;&#x4E5F;&#x662F;&#x6309;&#x6B64;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#x7684;&#xFF0C;&#x5185;&#x6838;&#x4F1A;&#x89E3;&#x538B;&#x7269;&#x7406;&#x5185;&#x4E2D;&#x7684;initrd&#x955C;&#x50CF;&#xFF0C;&#x5E76;&#x6700;&#x7EC8;&#x5C06;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#x5185;&#x5BB9;&#x590D;&#x5236;&#x5230;&#x4E00;&#x4E2A;ramdisk&#x8BBE;&#x5907;(/dev/ram)&#x4E2D;&#x3002;&#x8FD9;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x62E5;&#x6709;&#x4E86;&#x4E00;&#x4E2A;&#x4F4D;&#x4E8E;&#x5185;&#x6838;ramdisk&#x4E2D;&#x7684;&#x5408;&#x9002;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x3002;&#x5F53;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x88AB;&#x8BFB;&#x5165;&#x5230;ramdisk&#x4E2D;&#xFF0C;&#x5185;&#x6838;&#x5B9E;&#x9645;&#x4E0A;&#x4F1A;&#x6302;&#x8F7D;ramdisk&#x8BBE;&#x5907;&#x4F5C;&#x4E3A;&#x6839;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x3002;&#x6700;&#x540E;&#xFF0C;&#x5185;&#x6838;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x5185;&#x6838;&#x7EBF;&#x7A0B;&#xFF0C;&#x7528;&#x4EE5;&#x6267;&#x884C;initrd&#x955C;&#x50CF;&#x4E2D;&#x7684;linuxrc&#x6587;&#x4EF6;&#x3002;</p>
+<p>&#x5F53;linuxrc&#x811A;&#x672C;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x540E;&#xFF0C;&#x5185;&#x6838;&#x4F1A;&#x5378;&#x8F7D;initrd&#xFF0C;&#x5E76;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x7CFB;&#x7EDF;&#x5F15;&#x5BFC;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E9B;&#x6B65;&#x9AA4;&#x3002;&#x5982;&#x679C;&#x771F;&#x6B63;&#x7684;&#x6839;&#x8BBE;&#x5907;&#x4E2D;&#x6709;&#x4E00;&#x4E2A;&#x540D;&#x4E3A;/initrd&#x7684;&#x76EE;&#x5F55;&#xFF0C;Linux&#x4F1A;&#x5C06;initrd&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x6302;&#x8F7D;&#x5230;&#x8FD9;&#x4E2A;&#x8DEF;&#x5F84;&#x4E0A;&#xFF08;&#x79F0;&#x4E3A;&#x6302;&#x8F7D;&#x70B9;&#xFF09;&#x3002;&#x5982;&#x679C;&#x6700;&#x7EC8;&#x7684;&#x6839;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E2D;&#x4E0D;&#x5305;&#x542B;&#x8FD9;&#x4E2A;&#x76EE;&#x5F55;&#xFF0C;initrd&#x955C;&#x50CF;&#x5C31;&#x7B80;&#x5355;&#x5730;&#x4E22;&#x5F03;&#x4E86;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x5185;&#x6838;&#x547D;&#x4EE4;&#x884C;&#x4E2D;&#x5305;&#x542B;root=&#x53C2;&#x6570;&#x5E76;&#x6307;&#x5411;&#x4E00;&#x4E2A;ramdisk(&#x6BD4;&#x5982;root=/dev/ram0)&#xFF0C;&#x90A3;&#x4E48;&#x524D;&#x9762;&#x6240;&#x63CF;&#x8FF0;&#x7684;initrd&#x7684;&#x884C;&#x4E3A;&#x4F1A;&#x53D1;&#x751F;&#x4E24;&#x4E2A;&#x91CD;&#x8981;&#x7684;&#x53D8;&#x5316;&#x3002;&#x9996;&#x5148;&#xFF0C;linuxrc&#x6587;&#x4EF6;&#x5C06;&#x4E0D;&#x4F1A;&#x62E5;&#x6709;&#x4E00;&#x4E2A;&#x5F97;&#x5230;&#x5904;&#x7406;&#x3002;&#x5176;&#x6B21;&#xFF0C;&#x5185;&#x6838;&#x4E0D;&#x4F1A;&#x5C1D;&#x8BD5;&#x6302;&#x8F7D;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4F5C;&#x4E3A;&#x5176;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x3002;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x4F60;&#x53EF;&#x4EE5;&#x62E5;&#x6709;&#x4E00;&#x4E2A;Linux&#x7CFB;&#x7EDF;&#xFF0C;&#x5176;&#x4E2D;initrd&#x662F;&#x5B83;&#x552F;&#x4E00;&#x7684;&#x6839;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x3002;&#x8FD9;&#x5BF9;&#x4E8E;&#x5C0F;&#x578B;&#x7684;&#x7CFB;&#x7EDF;&#x914D;&#x7F6E;&#x5F88;&#x6709;&#x7528;&#xFF0C;&#x8FD9;&#x7C7B;&#x7CFB;&#x7EDF;&#x4E2D;&#x552F;&#x4E00;&#x7684;&#x6839;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x5C31;&#x662F;ramdisk&#x3002;&#x5982;&#x679C;&#x5728;&#x5185;&#x6838;&#x547D;&#x4EE4;&#x884C;&#x4E2D;&#x6267;&#x884C;/dev/ram0&#xFF0C;&#x5F53;&#x6574;&#x4E2A;&#x7CFB;&#x7EDF;&#x521D;&#x59CB;&#x5316;&#x5B8C;&#x6210;&#x540E;&#xFF0C;initrd&#x5C31;&#x4F1A;&#x6210;&#x4E3A;&#x6700;&#x7EC8;&#x7684;&#x6839;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x3002;</p>
+<h2 id="initramfs">initramfs</h2>
+<p>initramfs&#x548C;initrd&#x4F5C;&#x7528;&#x7C7B;&#x4F3C;&#xFF0C;&#x4F46;&#x8FD0;&#x884C;&#x673A;&#x5236;&#x548C;&#x6280;&#x672F;&#x5B9E;&#x73B0;&#x7EC6;&#x8282;&#x5DEE;&#x522B;&#x5F88;&#x5927;&#x3002;</p>
+<p>initramfs&#x662F;&#x5728;&#x8C03;&#x7528;do_basic_setup()&#x4E4B;&#x524D;&#x52A0;&#x8F7D;&#x7684;&#xFF0C;&#x8FD9;&#x5C31;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x79CD;&#x5728;&#x52A0;&#x8F7D;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x4E4B;&#x524D;&#x52A0;&#x8F7D;&#x56FA;&#x4EF6;&#x7684;&#x673A;&#x5236;&#x3002;</p>
+<p>&#x4ECE;&#x5B9E;&#x7528;&#x7684;&#x89D2;&#x5EA6;&#x770B;&#xFF0C;initramfs&#x66F4;&#x52A0;&#x5BB9;&#x6613;&#x5B9E;&#x7528;&#x3002;initramfs&#x662F;&#x4E00;&#x4E2A;cpio&#x683C;&#x5F0F;&#x7684;&#x6863;&#x6848;&#x6587;&#x4EF6;&#xFF0C;&#x800C;initrd&#x662F;&#x4E00;&#x4E2A;&#x5B9E;&#x7528;gzip&#x538B;&#x7F29;&#x8FC7;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x955C;&#x50CF;&#x3002;&#x8FD9;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x533A;&#x522B;&#x8BA9;initramfs&#x66F4;&#x6613;&#x5B9E;&#x7528;&#xFF0C;&#x800C;&#x4E14;&#x65E0;&#x987B;&#x6210;&#x4E3A;root&#x7528;&#x6237;&#x5C31;&#x80FD;&#x521B;&#x5EFA;&#x5B83;&#x3002;&#x5B83;&#x5DF2;&#x7ECF;&#x96C6;&#x6210;&#x5230;Linux&#x5185;&#x6838;&#x6E90;&#x7801;&#x6811;&#x4E2D;(.../usr&#x76EE;&#x5F55;&#x7684;&#x5185;&#x5BB9;)&#x4E86;&#xFF0C;&#x5F53;&#x6784;&#x5EFA;&#x5185;&#x6838;&#x955C;&#x50CF;&#x65F6;&#xFF0C;&#x4F1A;&#x81EA;&#x52A8;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x9ED8;&#x8BA4;&#x5C0F;&#x578B;(&#x51E0;&#x4E4E;&#x6CA1;&#x6709;&#x5185;&#x5BB9;)initramfs&#x955C;&#x50CF;&#x3002;&#x6539;&#x52A8;&#x8FD9;&#x4E2A;&#x5C0F;&#x578B;&#x955C;&#x50CF;&#x8981;&#x6BD4;&#x6784;&#x5EFA;&#x548C;&#x52A0;&#x8F7D;&#x65B0;&#x7684;initrd&#x955C;&#x50CF;&#x5BB9;&#x6613;&#x7684;&#x591A;&#x3002;</p>
+<p>Linux&#x5185;&#x6838;&#x6E90;&#x7801;&#x6811;&#x7684;.../scripts&#x76EE;&#x5F55;&#x4E2D;&#x6709;&#x4E00;&#x4E2A;&#x540D;&#x4E3A;gen_initramfs_list.sh&#x7684;&#x811A;&#x672C;&#x6587;&#x4EF6;&#xFF0C;&#x5176;&#x4E2D;&#x5B9A;&#x4E49;&#x4E86;&#x54EA;&#x4E9B;&#x6587;&#x4EF6;&#x4F1A;&#x9ED8;&#x8BA4;&#x5305;&#x542B;&#x5728;initramfs&#x6863;&#x6848;&#x6587;&#x4EF6;&#x4E2D;&#x3002;</p>
+<h3 id="&#x5B9A;&#x5236;initramfs">&#x5B9A;&#x5236;initramfs</h3>
+<p>&#x6709;&#x4E24;&#x79CD;&#x9488;&#x5BF9;&#x7279;&#x5B9A;&#x9700;&#x6C42;&#x5B9A;&#x5236;initramfs&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x4E00;&#x79CD;&#x65B9;&#x6CD5;&#x662F;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;cpio&#x683C;&#x5F0F;&#x7684;&#x6863;&#x6848;&#x6587;&#x4EF6;&#xFF0C;&#x5176;&#x4E2D;&#x5305;&#x542B;&#x4F60;&#x6240;&#x9700;&#x7684;&#x6240;&#x6709;&#x6587;&#x4EF6;&#xFF0C;&#x53E6;&#x4E00;&#x79CD;&#x65B9;&#x6CD5;&#x662F;&#x6307;&#x5B9A;&#x4E00;&#x7CFB;&#x5217;&#x76EE;&#x5F55;&#x548C;&#x6587;&#x4EF6;&#xFF0C;&#x8FD9;&#x4E9B;&#x6587;&#x4EF6;&#x4F1A;&#x548C;gen_initramfs_list.sh&#x6240;&#x521B;&#x5EFA;&#x7684;&#x9ED8;&#x8BA4;&#x6587;&#x4EF6;&#x5408;&#x5E76;&#x5728;&#x4E00;&#x8D77;&#x3002;&#x4F60;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5185;&#x6838;&#x914D;&#x7F6E;&#x5DE5;&#x5177;&#x6765;&#x4E3A;initramfs&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x6E90;&#x3002;</p>
+<pre><code>-&gt; General setup
+    -&gt; Initial RAM filesystem and RAM disk (initramfs/initrd) support (BLK_DEV_INITRD [=y])
+        -&gt; Initramfs source file(s) (INITRAMFS_SOURCE [=])
+</code></pre><p>INITRAMFS_SOURCE&#x6307;&#x5411;&#x5F00;&#x53D1;&#x5DE5;&#x4F5C;&#x7AD9;&#x4E0A;&#x7684;&#x4E00;&#x4E2A;&#x76EE;&#x5F55;&#x3002;</p>
+<ul>
+<li>[1] .../Documentation/filesystems/ramfs-rootfs-initramfs.txt</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="init-process.html" class="navigation navigation-prev " aria-label="Previous page: 3.08 init进程">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="device-tree-blob.html" class="navigation navigation-next " aria-label="Next page: 3.10 设备树对象">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"3.09 初始RAM磁盘","level":"1.5.10","depth":2,"next":{"title":"3.10 设备树对象","level":"1.5.11","depth":2,"path":"kernel/device-tree-blob.md","ref":"kernel/device-tree-blob.md","articles":[]},"previous":{"title":"3.08 init进程","level":"1.5.9","depth":2,"path":"kernel/init-process.md","ref":"kernel/init-process.md","articles":[]},"dir":"ltr"},"config":{"plugins":["disqus"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"Brick"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Brick","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"深入理解Android系统","language":"zh-hans","links":{"sidebar":{"工作实验室":"http://labrick.cc"}},"gitbook":"*","description":"详细记录android系统的种种"},"file":{"path":"kernel/initial-ramdisk.md","mtime":"2017-02-12T14:00:03.320Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-07-09T14:10:52.365Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

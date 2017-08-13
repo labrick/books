@@ -1,0 +1,18 @@
+{
+    "language": "zh",
+    "title": "深入理解Android系统",
+    "author": "Brick",
+    "description": "详细记录android系统的种种",
+    "language": "zh-hans",
+    "links": {
+        "sidebar": {
+            "工作实验室": "http://labrick.cc"
+        }
+    },
+    "plugins": ["disqus"],
+    "pluginsConfig": {
+        "disqus": {
+            "shortName": "Brick"
+        }
+    }
+}

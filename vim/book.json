@@ -1,0 +1,18 @@
+{
+    "language": "zh",
+    "title": "VIM折腾记",
+    "author": "Brick",
+    "description": "记录VIM的配置和一些插件的使用",
+    "language": "zh-hans",
+    "links": {
+        "sidebar": {
+            "工作实验室": "http://labrick.cc"
+        }
+    },
+    "plugins": ["disqus"],
+    "pluginsConfig": {
+        "disqus": {
+            "shortName": "Brick"
+        }
+    }
+}

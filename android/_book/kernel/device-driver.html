@@ -1,0 +1,912 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>3.11 设备驱动 · 深入理解Android系统</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        <meta name="author" content="Brick">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-disqus/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="drivers/module-tools.html" />
+    
+    
+    <link rel="prev" href="device-tree-blob.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="http://labrick.cc" target="_blank" class="custom-link">工作实验室</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../prepare/">
+            
+                <a href="../prepare/">
+            
+                    
+                    0. 准备工作
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../prepare/as-install.html">
+            
+                <a href="../prepare/as-install.html">
+            
+                    
+                    0.01 应用开发环境搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../prepare/system-env.html">
+            
+                <a href="../prepare/system-env.html">
+            
+                    
+                    0.02 系统开发环境搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../application/">
+            
+                <a href="../application/">
+            
+                    
+                    1. 应用篇
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" >
+            
+                <span>
+            
+                    
+                    1.01 Android应用
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../application/system-sign.html">
+            
+                <a href="../application/system-sign.html">
+            
+                    
+                    1.01.01 获得系统签名
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../application/install-silence.html">
+            
+                <a href="../application/install-silence.html">
+            
+                    
+                    1.02 静默安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="../application/startapp-by-adb.html">
+            
+                <a href="../application/startapp-by-adb.html">
+            
+                    
+                    1.03 adb启动应用
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" >
+            
+                <span>
+            
+                    
+                    1.02 Linux应用
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../framework/">
+            
+                <a href="../framework/">
+            
+                    
+                    2. 框架篇
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../framework/system-lib.html">
+            
+                <a href="../framework/system-lib.html">
+            
+                    
+                    2.01 system/lib目录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../framework/add-service.html">
+            
+                <a href="../framework/add-service.html">
+            
+                    
+                    2.02 注册服务
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    3. 内核篇
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="sunxi-config.html">
+            
+                <a href="sunxi-config.html">
+            
+                    
+                    sunxi内核的配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="operate-dev.html">
+            
+                <a href="operate-dev.html">
+            
+                    
+                    3.01 驱动操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="kernel-version.html">
+            
+                <a href="kernel-version.html">
+            
+                    
+                    3.02 内核版本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="source-top-dir.html">
+            
+                <a href="source-top-dir.html">
+            
+                    
+                    3.03 源码顶层目录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="config-kernel.html">
+            
+                <a href="config-kernel.html">
+            
+                    
+                    3.04 内核配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="synthetize-image.html">
+            
+                <a href="synthetize-image.html">
+            
+                    
+                    3.05 合成内核镜像
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="start-kernel.html">
+            
+                <a href="start-kernel.html">
+            
+                    
+                    3.06 Linux启动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="kernel-cmd.html">
+            
+                <a href="kernel-cmd.html">
+            
+                    
+                    3.07 内核命令行
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.9" data-path="init-process.html">
+            
+                <a href="init-process.html">
+            
+                    
+                    3.08 init进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.10" data-path="initial-ramdisk.html">
+            
+                <a href="initial-ramdisk.html">
+            
+                    
+                    3.09 初始RAM磁盘
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.11" data-path="device-tree-blob.html">
+            
+                <a href="device-tree-blob.html">
+            
+                    
+                    3.10 设备树对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5.12" data-path="device-driver.html">
+            
+                <a href="device-driver.html">
+            
+                    
+                    3.11 设备驱动
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.12.1" data-path="drivers/module-tools.html">
+            
+                <a href="drivers/module-tools.html">
+            
+                    
+                    3.11.01 设备驱动模块工具
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.12.2" data-path="drivers/driver-example.html">
+            
+                <a href="drivers/driver-example.html">
+            
+                    
+                    3.11.02 完整驱动示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.12.3" data-path="drivers/device-node.html">
+            
+                <a href="drivers/device-node.html">
+            
+                    
+                    3.11.03 设备节点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.12.4" data-path="drivers/mtd-subsystem.html">
+            
+                <a href="drivers/mtd-subsystem.html">
+            
+                    
+                    3.11.04 MTD子系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.12.4.1" data-path="drivers/mtd/mtd-element.html">
+            
+                <a href="drivers/mtd/mtd-element.html">
+            
+                    
+                    3.11.04.01 MTD基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.12.4.2" data-path="drivers/mtd/mtd-partition.html">
+            
+                <a href="drivers/mtd/mtd-partition.html">
+            
+                    
+                    3.11.04.02 MTD分区
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.12.5" data-path="drivers/i2c.md">
+            
+                <span>
+            
+                    
+                    3.11.05 I2C子系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.13" data-path="filesystem.html">
+            
+                <a href="filesystem.html">
+            
+                    
+                    3.12 文件系统
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.13.1" data-path="fs/fs-tools.html">
+            
+                <a href="fs/fs-tools.html">
+            
+                    
+                    3.12.01 文件系统工具
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.13.2" data-path="fs/proc.html">
+            
+                <a href="fs/proc.html">
+            
+                    
+                    3.12.02 伪文件系统proc
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.13.3" data-path="fs/create-fs-image.html">
+            
+                <a href="fs/create-fs-image.html">
+            
+                    
+                    3.12.03 创建文件系统镜像
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.14" data-path="busybox.html">
+            
+                <a href="busybox.html">
+            
+                    
+                    3.13 BusyBox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.15" data-path="udev.html">
+            
+                <a href="udev.html">
+            
+                    
+                    3.14 udev系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../uboot/">
+            
+                <a href="../uboot/">
+            
+                    
+                    4. 启动篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../hardware/">
+            
+                <a href="../hardware/">
+            
+                    
+                    5. 硬件篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../key-abbreviation.html">
+            
+                <a href="../key-abbreviation.html">
+            
+                    
+                    附录A 名词缩写
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >3.11 设备驱动</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="311-&#x8BBE;&#x5907;&#x9A71;&#x52A8;">3.11 &#x8BBE;&#x5907;&#x9A71;&#x52A8;</h1>
+<p>2017-02-13</p>
+<hr>
+<p>&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x7684;&#x4F5C;&#x7528;&#xFF1A;</p>
+<ol>
+<li>&#x5C06;&#x7528;&#x6237;&#x7A0B;&#x5E8F;&#x9694;&#x79BB;&#x5F00;&#x6765;&#xFF0C;&#x963B;&#x6B62;&#x5B83;&#x4EEC;&#x968F;&#x610F;&#x8BBF;&#x95EE;&#x5173;&#x952E;&#x7684;&#x5185;&#x6838;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x548C;&#x786C;&#x4EF6;&#x8BBE;&#x5907;&#x3002;</li>
+<li>&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x7EDF;&#x4E00;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x7528;&#x4E8E;&#x548C;&#x786C;&#x4EF6;&#x6216;&#x5185;&#x6838;&#x5C42;&#x8BBE;&#x5907;&#x901A;&#x4FE1;&#x3002;</li>
+</ol>
+<h2 id="&#x6784;&#x5EFA;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x7684;&#x6B65;&#x9AA4;">&#x6784;&#x5EFA;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x7684;&#x6B65;&#x9AA4;</h2>
+<ol>
+<li>&#x4ECE;&#x9876;&#x5C42;Linux&#x6E90;&#x7801;&#x76EE;&#x5F55;&#x5F00;&#x59CB;&#xFF0C;&#x5728;&#x76EE;&#x5F55;.../drivers/char&#x4E0B;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x540D;&#x4E3A;examples&#x7684;&#x76EE;&#x5F55;&#x3002;</li>
+<li>&#x5728;&#x5185;&#x6838;&#x914D;&#x7F6E;&#x79CD;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x83DC;&#x5355;&#x9879;&#xFF0C;&#x7531;&#x6B64;&#x6211;&#x4EEC;&#x80FD;&#x591F;&#x6784;&#x5EFA;examples&#xFF0C;&#x5E76;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x5C06;&#x5B83;&#x6784;&#x5EFA;&#x6210;&#x5185;&#x7F6E;&#x7684;&#x6216;&#x662F;&#x53EF;&#x52A0;&#x8F7D;&#x7684;&#x5185;&#x6838;&#x6A21;&#x5757;&#x3002;</li>
+<li>&#x4FEE;&#x6539;.../drivers/char/Makefile&#x6587;&#x4EF6;&#xFF0C;&#x5728;&#x5176;&#x4E2D;&#x6DFB;&#x52A0;&#x5BF9;examples&#x5B50;&#x76EE;&#x5F55;&#x7684;&#x6761;&#x4EF6;&#x7F16;&#x8BD1;&#xFF0C;&#x4EE5;&#x7B2C;(2)&#x6B65;&#x4E2D;&#x521B;&#x5EFA;&#x7684;&#x83DC;&#x5355;&#x9879;&#x7684;&#x503C;&#x4E3A;&#x6761;&#x4EF6;&#x3002;</li>
+<li>&#x4E3A;examples&#x65B0;&#x76EE;&#x5F55;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;Makefile&#xFF0C;&#x5E76;&#x5728;&#x5176;&#x4E2D;&#x6DFB;&#x52A0;&#x5BF9;hello.o&#x6A21;&#x5757;&#x6A21;&#x5757;&#x7684;&#x6761;&#x4EF6;&#x7F16;&#x8BD1;&#xFF0C;&#x4EE5;&#x7B2C;(2)&#x6B65;&#x4E2D;&#x521B;&#x5EFA;&#x7684;&#x83DC;&#x5355;&#x9879;&#x7684;&#x503C;&#x4E3A;&#x6761;&#x4EF6;&#x3002;</li>
+<li>&#x521B;&#x5EFA;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;hello.c&#x6E90;&#x7801;&#x6587;&#x4EF6;&#x3002;</li>
+</ol>
+<h2 id="&#x6700;&#x5C0F;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x793A;&#x4F8B;">&#x6700;&#x5C0F;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x793A;&#x4F8B;</h2>
+<pre><code>/* &#x6700;&#x5C0F;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x793A;&#x4F8B; */
+#include &lt;linux/module.h&gt;
+
+static int __init hello_init(void)
+{
+    printk(KERN_INFO &quot;Hello Example Init\n&quot;);
+
+    return 0;
+}
+
+static void __init hello_exit(void)
+{
+    printk(&quot;Hello Example Exit\n&quot;);
+}
+
+module_init(hello_init);
+module_exit(hello_exit);
+
+MODULE_AUTHOR(&quot;BRICK&quot;);
+MODULE_DESCRIPTION(&quot;Hello World Example&quot;);
+MODULE_LICENSE(&quot;GPL&quot;);
+</code></pre><h2 id="&#x52A0;&#x8F7D;&#x6A21;&#x5757;">&#x52A0;&#x8F7D;&#x6A21;&#x5757;</h2>
+<pre><code>modprobe hello      // &#x52A0;&#x8F7D;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#xFF0C;&#x5FC5;&#x9700;&#x662F;root&#x7528;&#x6237;
+modprobe -r hello      // &#x5378;&#x8F7D;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#xFF0C;&#x5FC5;&#x9700;&#x662F;root&#x7528;&#x6237;
+</code></pre><h2 id="&#x6A21;&#x5757;&#x53C2;&#x6570;">&#x6A21;&#x5757;&#x53C2;&#x6570;</h2>
+<p>&#x5F88;&#x591A;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x6A21;&#x5757;&#x90FD;&#x53EF;&#x4EE5;&#x63A5;&#x53D7;&#x53C2;&#x6570;&#xFF0C;&#x6539;&#x53D8;&#x5176;&#x884C;&#x4E3A;&#x3010;&#x8FD9;&#x4E2A;&#x6211;&#x8FD8;&#x771F;&#x4E0D;&#x77E5;&#x9053;&#x5462;....&#x3011;&#x3002;&#x8FD9;&#x6837;&#x7684;&#x4F8B;&#x5B50;&#x5305;&#x62EC;&#x5F00;&#x542F;&#x8C03;&#x8BD5;&#x6A21;&#x5F0F;&#x3001;&#x8BBE;&#x7F6E;&#x8BE6;&#x7EC6;&#x8F93;&#x51FA;&#x6A21;&#x5F0F;&#x4EE5;&#x53CA;&#x6307;&#x5B9A;&#x4E0E;&#x5177;&#x4F53;&#x6A21;&#x5757;&#x76F8;&#x5173;&#x7684;&#x9009;&#x9879;&#x3002;</p>
+<p>&#x770B;&#x4E2A;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code>/* &#x6700;&#x5C0F;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x793A;&#x4F8B; */
+#include &lt;linux/module.h&gt;
+
+static int debug_enable = 0;        /* &#x6DFB;&#x52A0;&#x7684;&#x9A71;&#x52A8;&#x53C2;&#x6570; */
+module_param(debug_enable, int, 0); /* &#x6DFB;&#x52A0;&#x8FD9;&#x4E24;&#x884C; */
+MODULE_PARM_DESC(debug_enable, &quot;Enable module debug mode.&quot;);
+
+static int __init hello_init(void)
+{
+    /* &#x73B0;&#x5728;&#x6253;&#x5370;&#x65B0;&#x7684;&#x6A21;&#x5757;&#x53C2;&#x6570;&#x7684;&#x503C; */
+    printk(&quot;Hello Example Init - debug mode is %s\n&quot;,
+        debug_enable ? &quot;enabled&quot; : &quot;disabled&quot;);
+
+    return 0;
+}
+
+static void __init hello_exit(void)
+{
+    printk(&quot;Hello Example Exit\n&quot;);
+}
+
+module_init(hello_init);
+module_exit(hello_exit);
+
+MODULE_AUTHOR(&quot;BRICK&quot;);
+MODULE_DESCRIPTION(&quot;Hello World Example&quot;);
+MODULE_LICENSE(&quot;GPL&quot;);
+</code></pre><p>module_param&#x662F;&#x4E00;&#x4E2A;&#x5B8F;&#xFF0C;&#x5728;&#x6587;&#x4EF6;.../include/linux/moduleparam.h&#x4E2D;&#xFF08;modules.h&#x5305;&#x542B;&#x4E86;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#xFF09;&#x5B9A;&#x4E49;&#x3002;&#x5B83;&#x5411;&#x5185;&#x6838;&#x6A21;&#x5757;&#x5B50;&#x7CFB;&#x7EDF;&#x6CE8;&#x518C;&#x4E86;&#x8FD9;&#x4E2A;&#x6A21;&#x5757;&#x53C2;&#x6570;&#x3002;
+MODULE_PARM_DESC&#x4E5F;&#x662F;&#x4E00;&#x6837;&#xFF0C;&#x5B83;&#x5411;&#x5185;&#x6838;&#x6A21;&#x5757;&#x5B50;&#x7CFB;&#x7EDF;&#x6CE8;&#x518C;&#x4E86;&#x4E00;&#x4E2A;&#x548C;&#x53C2;&#x6570;&#x76F8;&#x5173;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x63CF;&#x8FF0;&#x3002;
+&#x53EF;&#x4EE5;&#x901A;&#x8FC7;modinfo&#x547D;&#x4EE4;&#x663E;&#x793A;&#x3002;</p>
+<pre><code># insmod hello.ko debug_enable=1
+Hello Example Init - debug mode is enabled
+# insmod hello.ko
+Hello Example Init - debug mode is disabled
+</code></pre><ul>
+<li>[1] &#x5982;&#x679C;&#x6CA1;&#x6709;&#x5728;&#x63A7;&#x5236;&#x53F0;&#x4E2D;&#x770B;&#x5230;&#x4E00;&#x4E9B;&#x5173;&#x6CE8;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x53EF;&#x4EE5;&#x5C1D;&#x8BD5;&#x5173;&#x95ED;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;syslogd&#x6216;&#x662F;&#x964D;&#x4F4E;&#x63A7;&#x5236;&#x53F0;&#x7684;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;(loglevel)</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="device-tree-blob.html" class="navigation navigation-prev " aria-label="Previous page: 3.10 设备树对象">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="drivers/module-tools.html" class="navigation navigation-next " aria-label="Next page: 3.11.01 设备驱动模块工具">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"3.11 设备驱动","level":"1.5.12","depth":2,"next":{"title":"3.11.01 设备驱动模块工具","level":"1.5.12.1","depth":3,"path":"kernel/drivers/module-tools.md","ref":"kernel/drivers/module-tools.md","articles":[]},"previous":{"title":"3.10 设备树对象","level":"1.5.11","depth":2,"path":"kernel/device-tree-blob.md","ref":"kernel/device-tree-blob.md","articles":[]},"dir":"ltr"},"config":{"plugins":["disqus"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"Brick"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Brick","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"深入理解Android系统","language":"zh-hans","links":{"sidebar":{"工作实验室":"http://labrick.cc"}},"gitbook":"*","description":"详细记录android系统的种种"},"file":{"path":"kernel/device-driver.md","mtime":"2017-02-14T11:46:40.817Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-07-09T14:10:52.365Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
