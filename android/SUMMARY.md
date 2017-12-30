@@ -39,7 +39,9 @@
         * [3.12.03 创建文件系统镜像](kernel/fs/create-fs-image.md)
     * [3.13 BusyBox](kernel/busybox.md)
     * [3.14 udev系统](kernel/udev.md)
+    * [3.15 背后的哲学](kernel/philosophy.md)
 * [4. 启动篇](uboot/README.md)
 * [5. 硬件篇](hardware/README.md)
 * [附录A 名词缩写](key-abbreviation.md)
+* [附录B 参考书籍](perference-books.md)
 
