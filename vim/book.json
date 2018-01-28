@@ -9,10 +9,11 @@
             "工作实验室": "http://labrick.cc"
         }
     },
-    "plugins": ["disqus"],
+    "plugins": ["hypercomments"],
     "pluginsConfig": {
-        "disqus": {
-            "shortName": "Brick"
+        "hypercomments": {
+            "wid": 94745,
+            "lan": "en"
         }
     }
 }
